@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      padding: 20px 0;
+    }
+  
+
+
+div {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px; 
+  display: inline-block;
+  margin: 5px;
+}
+
+ span{
+    margin: 20px ;
+ }
+.name{
+font-weight: bold;
+}
+
+.age{
+color: white;
+padding: 5px;
+background-color: #4CAF50;
+border-radius: 20px;
+}
+
+    .add-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .add-button:hover {
+      background-color: #45a049;
+    }
+
+    .popup-form {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 20px;
+      z-index: 9999;
+    }
+
+    .popup-form label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .popup-form input[type="text"],
+    .popup-form select {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .popup-form button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .popup-form button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <button class="add-button">Add Members</button>
+  <h1>Members</h1>
+  
+  <ul>
+    {% for response in mymembers %}
+      <div>
+          <span class="name">{{response.name }}</span>
+          <span class="gender">{{response.gender}}</span>
+          <span class="age">{{response.age}}</span>
+      </div>
+    {% endfor %}
+  </ul>
+
+  <div class="popup-form" id="addMemberForm">
+    <h3>Add Member</h3>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      <label for="age">Age:</label>
+      <input type="text" id="age" name="age">
+      <button type="submit">Add</button>
+    </form>
+  </div>
+
+  <script>
+    const addButton = document.querySelector('.add-button');
+    const popupForm = document.querySelector('.popup-form');
+
+    addButton.addEventListener('click', () => {
+      popupForm.style.display = 'block';
+    });
+
+    popupForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = document.querySelector('#name').value;
+      const gender = document.querySelector('#gender').value;
+      const age = document.querySelector('#age').value;
+
+
+      // Clear form inputs
+      document.querySelector('#name').value = '';
+      document.querySelector('#gender').value = 'Male';
+      document.querySelector('#age').value = '';
+
+      popupForm.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
